@@ -3,7 +3,7 @@ from enum import Enum
 from typing import List, Optional
 from uuid import UUID
 
-from pydantic import BaseModel, conint, validator, conlist
+from pydantic import BaseModel, conint, conlist, Field
 
 
 class Size(Enum):
@@ -28,7 +28,7 @@ class OrderItemSchema(BaseModel):
 
 
 class CreateOrderSchema(BaseModel):
-    order: conlist(OrderItemSchema)
+    order: List[OrderItemSchema] = Field(..., min_items=1)
 
 
 class GetOrderSchema(CreateOrderSchema):
